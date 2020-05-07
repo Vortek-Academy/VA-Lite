@@ -17,12 +17,12 @@ module.exports = class Handler {
 					try {
 						let cmd = require(`${dir}/${cat}/${file}`); // Get the file
 						cmd = new cmd(); // Create a new command instance
-						cmd.bot = this.bot; // Bind command to bot
+						cmd.bot = this.bot; // Make bot easy to access from command file
 						cmd.category = cat; // Set command category
 
 						// Add the file to the commands collection
 						this.bot.commands.set(cmd.name, cmd);
-						table.addRow(cmd, '✅ Running!');
+						table.addRow(file, '✅ Running!');
 					} catch (e) {
 						table.addRow(file, `❌ Couldn't Load => ${e}!`);
 					}
@@ -41,7 +41,7 @@ module.exports = class Handler {
 
 				// Run the events on bot instance
 				this.bot.on(evt.event, evt.run.bind(null, this.bot));
-				table.addRow(cmd, '✅ Running!');
+				table.addRow(file, '✅ Running!');
 			} catch (e) {
 				table.addRow(file, `❌ Couldn't Load => ${e}!`);
 			}

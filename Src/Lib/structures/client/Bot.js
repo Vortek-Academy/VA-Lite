@@ -1,5 +1,5 @@
 require('dotenv').config({
-	path: __dirname + '../../../../.env'
+	path: __dirname + '/../../../../.env'
 });
 const { Client, Collection } = require('discord.js');
 const Handler = require('./Handler');
@@ -13,7 +13,10 @@ module.exports = class Bot extends Client {
 	constructor(token) {
 		// Call super and login the bot
 		super();
-		super.login(token).then(() => `${this.user.username} is now online!`);
+		super
+			.login(token)
+			.then(() => console.log(`${this.user.username} is now online!`))
+			.catch(console.error);
 
 		// Loading commands and making a new handler instance
 		this.config = new Confg(process.env.TYPE);
@@ -23,8 +26,8 @@ module.exports = class Bot extends Client {
 
 	load(
 		{ commands, events } = {
-			commands: __dirname + '../../../Bot/commands',
-			events: __dirname + '../../../Bot/events'
+			commands: __dirname + '/../../../Bot/commands',
+			events: __dirname + '/../../../Bot/events'
 		}
 	) {
 		// Load the events and commands
