@@ -1,0 +1,16 @@
+{
+	"name": "framework",
+	"version": "1.0.0",
+	"description": "The best discord.js bot framework",
+	"main": "Src/Bot/index.js",
+	"scripts": {
+		"test": "node Src/Bot/index.js"
+	},
+	"author": "ThatAnonymousG",
+	"license": "ISC",
+	"dependencies": {
+		"ascii-table": "0.0.9",
+		"discord.js": "^12.2.0",
+		"dotenv": "^8.2.0"
+	}
+}
