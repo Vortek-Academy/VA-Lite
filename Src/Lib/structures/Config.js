@@ -1,11 +1,11 @@
-const config = require('../../config.json');
+const config = require("../../../config.json");
 
 module.exports = class Config {
-	constructor(type) {
-		this.config = config[type];
-	}
+  constructor(type) {
+    this.config = config[type];
+  }
 
-	get(locale = 'token') {
-		return this.config[locale];
-	}
+  get(locale = "token") {
+    return this.config[locale];
+  }
 };
