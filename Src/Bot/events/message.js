@@ -1,70 +1,76 @@
-const { Event } = require('../../Lib');
-const { prefix } = require('../../config.json');
+const { Event } = require("../../Lib");
 
 module.exports = class MessageEvent extends Event {
-	constructor() {
-		super('message');
-	}
+  constructor() {
+    super("message");
+  }
 
-	async run(message) {
-		if (message.author.bot) return;
-		if (!message.guild) return;
-		if (!message.member) await message.guild.members.fetch(message.author);
+  async run(bot, message) {
+    if (message.author.bot) return;
+    if (!message.guild) return;
+    if (!message.member) await message.guild.members.fetch(message.author);
 
-		// A safety check
-		if (!message.guild.me.hasPermission('SEND_MESSAGES')) return;
+    // Database and Prefix
+    if (!message.guild.db) await message.guild.setDB();
+    if (!message.member.db) await message.member.setDB();
+    const prefix = message.guild.db.prefix;
 
-		// Reply To Mention, but only if they user ONLY mentions the bot
-		if (message.content.match(new RegExp(`<@!?${bot.user.id}>`)))
-			await message.channel.send(
-				message.embed
-					.setDescription(`**Use \`${prefix}help\` for more help!**`)
-					.setColor(bot.hex)
-			);
+    // A safety check
+    if (!message.guild.me.hasPermission("SEND_MESSAGES")) return;
 
-		// Declaring arguments, checking if the message starts with the prefix and declaring the cmd
-		if (!message.content.startsWith(prefix)) return;
-		const args = message.content.slice(prefix.length).trim().split(/ +/g);
-		const cmd = args.shift().toLowerCase();
+    // Reply To Mention, but only if they user ONLY mentions the bot
+    if (message.content.match(new RegExp(`<@!?${bot.user.id}>`)))
+      await message.channel.send(
+        message.embed
+          .setDescription(`**Use \`${prefix}help\` for more help!**`)
+          .setColor(bot.hex)
+      );
 
-		// Trying to get the command
-		const command = bot.handler.getCommand(cmd);
-		if (!command) return;
+    // Declaring arguments, checking if the message starts with the prefix and declaring the cmd
+    if (!message.content.startsWith(prefix)) return;
+    const args = message.content.slice(prefix.length).trim().split(/ +/g);
+    const cmd = args.shift().toLowerCase();
 
-		if (
-			// Check user permissions
-			command.perms.every((p) =>
-				message.member.hasPermission(p, {
-					checkAdmin: true,
-					checkOwner: true
-				})
-			) &&
-			// Check bot permissions
-			command.botPerms.every((p) =>
-				message.guild.me.hasPermission(p, { checkAdmin: true })
-			)
-		) {
-			// Run The Command
-			command.run(message, args);
-		} else {
-			let perms = message.embed
-				.setTitle(`Not Enough Permissions`)
-				.setColor('#d94337')
-				.addField(
-					'User Perms',
-					`Users need the following permission(s) to run this command: ${command
-						.perms.length
-						? command.perms.map((x) => `\`${x}\``).join(' | ')
-						: `NONE`}`
-				)
-				.addField(
-					'Bot Perms',
-					`I need the following permission(s) to run this command: ${command
-						.botPerms.length
-						? command.botPerms.map((x) => `\`${x}\``).join(' | ')
-						: `NONE`}`
-				);
-			message.channel.send(perms);
-		}
-	}
+    // Trying to get the command
+    const command = bot.handler.getCommand(cmd);
+    if (!command) return;
+
+    if (
+      // Check user permissions
+      command.perms.every((p) =>
+        message.member.hasPermission(p, {
+          checkAdmin: true,
+          checkOwner: true,
+        })
+      ) &&
+      // Check bot permissions
+      command.botPerms.every((p) =>
+        message.guild.me.hasPermission(p, { checkAdmin: true })
+      )
+    ) {
+      // Run The Command
+      command.run(message, args);
+    } else {
+      let perms = message.embed
+        .setTitle(`Not Enough Permissions`)
+        .setColor("#d94337")
+        .addField(
+          "User Perms",
+          `Users need the following permission(s) to run this command: ${
+            command.perms.length
+              ? command.perms.map((x) => `\`${x}\``).join(" | ")
+              : `NONE`
+          }`
+        )
+        .addField(
+          "Bot Perms",
+          `I need the following permission(s) to run this command: ${
+            command.botPerms.length
+              ? command.botPerms.map((x) => `\`${x}\``).join(" | ")
+              : `NONE`
+          }`
+        );
+      await message.channel.send(perms);
+    }
+  }
 };
