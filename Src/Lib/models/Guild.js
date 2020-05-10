@@ -6,7 +6,7 @@ const GuildSchema = new Schema({
   mutes: Array,
   moderation: Array,
   moderationChannel: String,
-});
+})
 
 const GuildModel = model("guild", GuildSchema);
 module.exports = GuildModel;
