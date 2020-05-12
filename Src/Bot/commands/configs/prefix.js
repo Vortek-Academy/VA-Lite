@@ -9,5 +9,12 @@ module.exports = class PrefixCommand extends Command {
     });
   }
 
-  async run(message, [key, ...args]) {}
+  async run(message, [key, ...args]) {
+    if (!key) return message.sm(`Please input the new prefix value!`);
+
+    message.guild.db.prefix = key;
+    message.guild.db.save().catch(console.log);
+
+    message.sm(`Server prefix changed to \`${key}\`!`);
+  }
 };

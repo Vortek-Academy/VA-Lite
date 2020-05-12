@@ -1,4 +1,4 @@
-const {} = require("./utils");
+const { searchQuery } = require("./utils");
 const GuildModel = require("./models/Guild");
 const MemberModel = require("./models/Member");
 
@@ -8,4 +8,5 @@ module.exports = {
   Bot: require("./structures/client/Bot"),
   Command: require("./structures/handlers/Command"),
   Event: require("./structures/handlers/Event"),
+  searchQuery,
 };

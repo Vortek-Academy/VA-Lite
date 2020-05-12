@@ -1,4 +1,5 @@
 const { Structures, MessageEmbed } = require("discord.js");
+const { searchQuery } = require("../../");
 
 module.exports = () =>
   Structures.extend(
@@ -15,6 +16,27 @@ module.exports = () =>
               this.client.user.displayAvatarURL()
             )
             .setTimestamp();
+        }
+
+        async findMember(query = "") {
+          if (this.mentions.members.first())
+            return this.mentions.members.first();
+          if (this.mentions.users.first() && !this.mentions.members.first()) {
+            return await this.guild.members.fetch(this.mentions.users.first());
+          }
+          return (
+            this.guild.members.cache.get(query) ||
+            this.guild.members.cache.find((x) =>
+              searchQuery(query, x.user.username)
+            ) ||
+            null
+          );
+        }
+
+        comparePosition(member) {
+          return (
+            this.member.roles.highest.position > member.roles.highest.position
+          );
         }
       }
   );
