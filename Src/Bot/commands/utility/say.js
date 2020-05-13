@@ -5,6 +5,7 @@ module.exports = class SayCommand extends Command {
     super("say", {
       description: "Make an announcement in the server",
       perms: ["MENTION_EVERYONE"],
+      aliases: ["announce"],
       botPerms: ["MENTION_EVERYONE"],
       usage: "[Channel Mention | ID] [everyone] <Message>",
     });

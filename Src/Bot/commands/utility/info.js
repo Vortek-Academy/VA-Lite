@@ -10,7 +10,8 @@ module.exports = class InfoCommand extends Command {
   async run(message, args) {
     let Embed = message.embed
       .setAuthor(this.bot.user.username, this.bot.user.displayAvatarURL())
-      .setColor(this.bot.hex);
+      .setColor(this.bot.hex)
+      .setDescription(`A bot created with love by Anonymous Guy and Johna3212`)
 
     await message.channel.send(Embed);
   }
