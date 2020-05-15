@@ -11,8 +11,15 @@ module.exports = () =>
         }
 
         findChannels(channel) {
-          return this.mentions.channels.first() || this.guild.channels.cache.find(m => m.name === channel || m.id === channel) || null;
+          return (
+            this.mentions.channels.first() ||
+            this.guild.channels.cache.find(
+              (m) => m.name === channel || m.id === channel
+            ) ||
+            null
+          );
         }
+
         get embed() {
           return new MessageEmbed()
             .setFooter(

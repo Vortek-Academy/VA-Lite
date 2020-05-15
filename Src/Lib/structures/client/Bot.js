@@ -7,7 +7,6 @@ const Confg = require("../Config");
 require("../extended/Message")();
 require("../extended/Guild")();
 require("../extended/GuildMember")();
-require("../extended/User")();
 
 module.exports = class Bot extends Client {
   constructor(token) {
