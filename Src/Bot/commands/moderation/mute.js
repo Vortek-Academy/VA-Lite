@@ -4,10 +4,10 @@ const ms = require("ms");
 module.exports = class MuteCommand extends Command {
   constructor() {
     super("mute", {
-      description: "Mutes a player permanently or for a given time",
+      description: "Mutes a player permanently",
       perms: ["MANAGE_ROLES"],
       botPerms: ["MANAGE_CHANNELS", "MANAGE_ROLES"],
-      usage: "<Mention | ID> [Time] [Reason]",
+      usage: "<Mention | ID> [Reason]",
     });
   }
 
@@ -38,13 +38,7 @@ module.exports = class MuteCommand extends Command {
       message.guild.db.moderationChannel
     );
 
-    let duration = args[0];
-    let reason = args.slice(1).join(" ");
-
-    if (!duration || isNaN(ms(duration))) {
-      reason = args.join(" ");
-      duration = Infinity;
-    }
+    let reason = args.join(" ");
     if (reason.length < 1) reason = "No reason given!";
 
     let muterole = message.guild.roles.cache.find(
@@ -71,23 +65,15 @@ module.exports = class MuteCommand extends Command {
     try {
       await member.send(
         message.embed.setDescription(
-          `You have been muted in ${message.guild.name} ${
-            duration === Infinity ? "permanently" : `for \`${duration}\``
-          }!\nReason: **${reason}**`
+          `You have been muted in ${message.guild.name}!\nReason: **${reason}**`
         )
       );
     } catch (error) {
       message.sm(`The user's DMs were blocked!`);
     }
 
-    member.db.mute =
-      duration === Infinity ? duration : Date.now() + ms(duration);
-    member.db.save().catch(console.error);
-
     message.sm(
-      `**${member.user.tag}** has been muted ${
-        duration === Infinity ? "permanently" : `for \`${duration}\``
-      }!\nReason: **${reason}**`,
+      `**${member.user.tag}** has been muted!\nReason: **${reason}**`,
       false
     );
 
@@ -95,7 +81,7 @@ module.exports = class MuteCommand extends Command {
       action: "Mute",
       member: member.id,
       user: message.author.id,
-      reason: `[${duration}] ${reason}`,
+      reason: `${reason}`,
       date: Date.now(),
     });
     message.guild.db.save().catch(console.error);
@@ -105,7 +91,6 @@ module.exports = class MuteCommand extends Command {
       .setColor("#d94337")
       .addField("Moderator", `${message.member} | ${message.author.id}`, true)
       .addField("User", `${member} | ${member.id}`, true)
-      .addField("Duration", `${duration === Infinity ? "Permanent" : duration}`)
       .addField("Reason", `**${reason}**`, true)
       .setThumbnail(member.user.displayAvatarURL({ dynamic: true }));
     if (modlog) modlog.send(logEmbed);

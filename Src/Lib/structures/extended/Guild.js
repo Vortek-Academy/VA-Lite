@@ -21,7 +21,6 @@ module.exports = () =>
                 id: this.id,
                 prefix: prefix,
                 moderationChannel: null,
-                mutes: [],
                 moderation: [],
               });
           });

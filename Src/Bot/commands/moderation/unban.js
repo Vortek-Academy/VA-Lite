@@ -1,5 +1,5 @@
 const { Command } = require("../../../Lib");
-const { Guild } = require("discord.js");
+
 module.exports = class BanCommand extends Command {
   constructor() {
     super("unban", {
@@ -11,16 +11,16 @@ module.exports = class BanCommand extends Command {
   }
 
   async run(message, [name, ...args]) {
-    if (!name) return msessage.sm(`Please provide a valid username/id`);
-    const banMember = this.bot.users.fetch(name);
-    if (!banMember) return msessage.sm(`Unable to find the specified member`);
+    if (!name) return message.sm(`Please provide a valid username/id`);
+    const banMember = await this.bot.users.fetch(name);
+    if (!banMember) return message.sm(`Unable to find the specified member`);
     const reason = args[0] ? args.join(" ") : "Reason not provided";
     try {
-      message.guild.unban(banMember);
-    }     catch (e) {
+      await message.guild.unban(banMember);
+    } catch (e) {
       console.log(e);
-    };
-    
+    }
+
     let modlog = message.guild.channels.cache.get(
       message.guild.db.moderationChannel
     );
@@ -47,7 +47,5 @@ module.exports = class BanCommand extends Command {
       `**${banMember.user.tag}** has been successfully unbanned from the server!\nReason: **${reason}**`
     );
     if (modlog) modlog.send(logEmbed);
-    
-
   }
 };

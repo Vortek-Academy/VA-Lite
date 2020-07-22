@@ -6,7 +6,6 @@ module.exports = class SayCommand extends Command {
       description: "Make an announcement in the server",
       perms: ["MENTION_EVERYONE"],
       aliases: ["announce"],
-      botPerms: ["MENTION_EVERYONE"],
       usage: "[Channel Mention | ID] [everyone] <Message>",
     });
   }
@@ -17,7 +16,7 @@ module.exports = class SayCommand extends Command {
       message.mentions.channels.first();
     if (!channel) {
       channel = message.channel;
-      args.push("channel");
+      args.unshift("channel");
     }
 
     let _message =
@@ -41,7 +40,7 @@ module.exports = class SayCommand extends Command {
       );
     } catch (e) {
       message.sm(
-        `Make sure I have permission to send messages in that channel!`
+        `Make sure I have \`SEND_MESSAGES\` or \`MENTION_EVERYONE\` perms if you are pinging everyone!`
       );
     }
     await message.delete().catch();
