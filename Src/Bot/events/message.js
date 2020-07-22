@@ -1,6 +1,6 @@
-const { Event } = require("../../Lib");
+const { BotEvent } = require("../../Lib");
 
-module.exports = class MessageEvent extends Event {
+module.exports = class MessageEvent extends BotEvent {
   constructor() {
     super("message");
   }

@@ -1,6 +1,7 @@
-const { Event } = require("../../Lib");
+const { BotEvent } = require("../../Lib");
+const server = require("../../../Web/server/server");
 
-module.exports = class Ready extends Event {
+module.exports = class Ready extends BotEvent {
   constructor() {
     super("ready");
   }
@@ -13,5 +14,7 @@ module.exports = class Ready extends Event {
       },
     });
     bot.hex = "#32a4a8";
+
+    server(bot);
   }
 };

@@ -1,17 +1,24 @@
 {
-  "name": "framework",
+  "name": "va-lite",
   "version": "1.0.0",
-  "description": "The best discord.js bot framework",
+  "description": "The lite bot for lite solutions",
   "main": "Src/Bot/index.js",
   "scripts": {
-    "test": "node Src/Bot/index.js"
+    "test": "node Src/Bot/index.js",
+    "server": "node Web/server/server.js"
   },
   "author": "ThatAnonymousG",
   "license": "ISC",
   "dependencies": {
     "ascii-table": "0.0.9",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
+    "express": "^4.17.1",
     "mongoose": "^5.9.13"
+  },
+  "devDependencies": {
+    "node-fetch": "^2.6.0"
   }
 }

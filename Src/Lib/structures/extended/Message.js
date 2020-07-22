@@ -1,5 +1,5 @@
 const { Structures, MessageEmbed } = require("discord.js");
-const { searchQuery } = require("../../");
+const { searchQuery } = require("../../utils");
 
 module.exports = () =>
   Structures.extend(

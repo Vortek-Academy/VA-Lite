@@ -1,6 +1,6 @@
 const config = require("../../../config.json");
 require("dotenv").config({
-  path: __dirname + "/../../../../.env",
+  path: __dirname + "/../../../.env",
 });
 
 module.exports = class Config {

@@ -1,12 +1,10 @@
 const { searchQuery } = require("./utils");
 const GuildModel = require("./models/Guild");
-const MemberModel = require("./models/Member");
 
 module.exports.GuildModel = GuildModel;
-module.exports.MemberModel = MemberModel;
 module.exports = {
   Bot: require("./structures/client/Bot"),
   Command: require("./structures/handlers/Command"),
-  Event: require("./structures/handlers/Event"),
+  BotEvent: require("./structures/handlers/Event"),
   searchQuery,
 };
