@@ -30,19 +30,7 @@ module.exports = class KickCommand extends Command {
 
     let reason = args[0] ? args.join(" ") : "No reason given!";
 
-    let modlog = message.guild.channels.cache.get(
-      message.guild.db.moderationChannel
-    );
-
-    let logEmbed = message.embed
-      .setTitle("Member Kicked From Server")
-      .setColor("#d94337")
-      .addField("Moderator", `${message.member} | ${message.author.id}`, true)
-      .addField("User", `${kickMember} | ${kickMember.id}`, true)
-      .addField("Reason", `**${reason}**`)
-      .setThumbnail(kickMember.user.displayAvatarURL({ dynamic: true }));
-
-    await message.guild.db.moderation.push({
+    message.guild.db.moderation.push({
       action: "Kick",
       member: kickMember.id,
       user: message.author.id,
@@ -67,6 +55,17 @@ module.exports = class KickCommand extends Command {
     message.sm(
       `**${kickMember.user.tag}** has been successfully kicked from the server!\nReason: **${reason}**`
     );
+
+    let modlog = message.guild.channels.cache.get(
+      message.guild.db.moderationChannel
+    );
+    let logEmbed = message.embed
+      .setTitle("Member Kicked From Server")
+      .setColor("#d94337")
+      .addField("Moderator", `${message.member} | ${message.author.id}`, true)
+      .addField("User", `${kickMember} | ${kickMember.id}`, true)
+      .addField("Reason", `**${reason}**`)
+      .setThumbnail(kickMember.user.displayAvatarURL({ dynamic: true }));
     if (modlog) modlog.send(logEmbed);
   }
 };

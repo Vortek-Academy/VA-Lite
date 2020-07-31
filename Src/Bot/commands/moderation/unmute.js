@@ -26,9 +26,6 @@ module.exports = class UnmuteCommand extends Command {
     if (!member.db) await member.setDB();
 
     let reason = args[0] ? args.join(" ") : "No reason given!";
-    let modlog = message.guild.channels.cache.get(
-      message.guild.db.moderationChannel
-    );
     let muterole = message.guild.roles.cache.find(
       (r) => r.name.toLowerCase() === "muted"
     );
@@ -48,18 +45,10 @@ module.exports = class UnmuteCommand extends Command {
     }
     message.sm(`**${member.user.tag}** has been un-muted!`, false);
 
-    let logEmbed = message.embed
-      .setTitle("Member Un-Muted")
-      .setColor("#23d160")
-      .addField("Moderator", `${message.member} | ${message.author.id}`, true)
-      .addField("User", `${member} | ${member.id}`, true)
-      .addField("Reason", `**${reason}**`)
-      .setThumbnail(member.user.displayAvatarURL({ dynamic: true }));
-
     member.db.mute = 0;
     member.db.save().catch(console.error);
 
-    await message.guild.db.moderation.push({
+    message.guild.db.moderation.push({
       action: "Unmute",
       member: member.id,
       user: message.author.id,
@@ -68,6 +57,16 @@ module.exports = class UnmuteCommand extends Command {
     });
     message.guild.db.save().catch(console.error);
 
+    let modlog = message.guild.channels.cache.get(
+      message.guild.db.moderationChannel
+    );
+    let logEmbed = message.embed
+      .setTitle("Member Un-Muted")
+      .setColor("#23d160")
+      .addField("Moderator", `${message.member} | ${message.author.id}`, true)
+      .addField("User", `${member} | ${member.id}`, true)
+      .addField("Reason", `**${reason}**`)
+      .setThumbnail(member.user.displayAvatarURL({ dynamic: true }));
     if (modlog) modlog.send(logEmbed);
   }
 };

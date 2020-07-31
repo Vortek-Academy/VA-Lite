@@ -12,7 +12,6 @@ module.exports = class MessageEvent extends BotEvent {
 
     // Database and Prefix
     if (!message.guild.db) await message.guild.setDB();
-    if (!message.member.db) await message.member.setDB();
     const prefix = message.guild.db.prefix;
 
     // A safety check

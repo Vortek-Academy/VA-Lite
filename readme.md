@@ -4,7 +4,7 @@ This readme is meant for developers to explain the bot setup.
 
 ### How to setup the `config.json`?
 
-```js
+```json
 {
   "development": {
     "token": "TEST BOT TOKEN"

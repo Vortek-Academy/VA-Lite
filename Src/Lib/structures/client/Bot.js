@@ -1,12 +1,12 @@
 const { Client, Collection } = require("discord.js");
 const Handler = require("./Handler");
-const Config = require("../Config");
+const Config = require("../handlers/Config");
 const mongoose = require("mongoose");
 require("../extended/Message")();
 require("../extended/Guild")();
 
 module.exports = class Bot extends Client {
-  constructor(token) {
+  constructor() {
     // Call super and login the bot
     super();
 

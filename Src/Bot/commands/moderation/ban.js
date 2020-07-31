@@ -30,19 +30,7 @@ module.exports = class BanCommand extends Command {
 
     let reason = args[0] ? args.join(" ") : "No reason given!";
 
-    let modlog = message.guild.channels.cache.get(
-      message.guild.db.moderationChannel
-    );
-
-    let logEmbed = message.embed
-      .setTitle("Member Banned From Server")
-      .setColor("#d94337")
-      .addField("Moderator", `${message.member} | ${message.author.id}`, true)
-      .addField("User", `${banMember} | ${banMember.id}`, true)
-      .addField("Reason", `**${reason}**`)
-      .setThumbnail(banMember.user.displayAvatarURL({ dynamic: true }));
-
-    await message.guild.db.moderation.push({
+    message.guild.db.moderation.push({
       action: "Ban",
       member: banMember.id,
       user: message.author.id,
@@ -67,6 +55,18 @@ module.exports = class BanCommand extends Command {
     message.sm(
       `**${banMember.user.tag}** has been successfully banned from the server!\nReason: **${reason}**`
     );
+
+    let modlog = message.guild.channels.cache.get(
+      message.guild.db.moderationChannel
+    );
+    let logEmbed = message.embed
+      .setTitle("Member Banned From Server")
+      .setColor("#d94337")
+      .addField("Moderator", `${message.member} | ${message.author.id}`, true)
+      .addField("User", `${banMember} | ${banMember.id}`, true)
+      .addField("Reason", `**${reason}**`)
+      .setThumbnail(banMember.user.displayAvatarURL({ dynamic: true }));
+
     if (modlog) modlog.send(logEmbed);
   }
 };

@@ -1,11 +1,12 @@
-const config = require("../../../config.json");
+const config = require("../../../../config.json");
 require("dotenv").config({
-  path: __dirname + "/../../../.env",
+  path: __dirname + "/../../../../.env",
 });
 
 module.exports = class Config {
   constructor() {
     this.config = config[process.env.TYPE];
+    this.type = process.env.TYPE;
   }
 
   get(locale = "token") {

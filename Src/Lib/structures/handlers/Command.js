@@ -5,16 +5,14 @@ module.exports = class Command {
       aliases: [],
       description: "None",
       usage: "None",
-      examples: [],
       perms: [],
       botPerms: [],
     }
   ) {
     this.name = name;
     this.aliases = options.aliases || [];
-    this.description = options.description || "None";
+    this.description = options.description || "No description yet!";
     this.usage = options.usage || "None";
-    this.examples = options.examples || [];
     this.perms = options.perms || [];
     this.botPerms = options.botPerms || [];
   }

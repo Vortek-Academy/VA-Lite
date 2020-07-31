@@ -34,10 +34,6 @@ module.exports = class MuteCommand extends Command {
       return message.sm(`You cannot mute an administrator!`);
     if (!member.db) await member.setDB();
 
-    let modlog = message.guild.channels.cache.get(
-      message.guild.db.moderationChannel
-    );
-
     let reason = args.join(" ");
     if (reason.length < 1) reason = "No reason given!";
 
@@ -77,7 +73,7 @@ module.exports = class MuteCommand extends Command {
       false
     );
 
-    await message.guild.db.moderation.push({
+    message.guild.db.moderation.push({
       action: "Mute",
       member: member.id,
       user: message.author.id,
@@ -86,6 +82,9 @@ module.exports = class MuteCommand extends Command {
     });
     message.guild.db.save().catch(console.error);
 
+    let modlog = message.guild.channels.cache.get(
+      message.guild.db.moderationChannel
+    );
     let logEmbed = message.embed
       .setTitle("Member Muted")
       .setColor("#d94337")
