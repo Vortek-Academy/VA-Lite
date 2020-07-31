@@ -80,16 +80,23 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <v-snackbar
-      v-model="dialog"
-      bottom
-      dark
-      timeout="5000"
-      style="font-weight: bold;"
-    >
-      {{ text }}
-      <v-btn text color="red" @click="dialog = false">Ok</v-btn>
-    </v-snackbar>
+    <v-dialog v-model="dialog" dark max-width="500px">
+      <v-card
+        style="
+          font-family: Josefin, sans-serif;
+          font-weight: bold;
+          border: solid 1px #e67e22;
+        "
+      >
+        <v-card-title style="word-break: normal;">
+          {{ text }}
+        </v-card-title>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue dark-1" text @click="dialog = false">Ok</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
