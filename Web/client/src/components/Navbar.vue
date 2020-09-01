@@ -3,7 +3,7 @@
     <v-app-bar
       hide-on-scroll
       flat
-      style="font-family: 'Josefin', serif; background: transparent;"
+      style="font-family: 'Josefin', sans-serif; background: transparent;"
     >
       <v-toolbar-title style="padding: 5px; margin-right: 1rem; color: #fbbc0e;"
         ><v-avatar
@@ -16,14 +16,14 @@
       <v-btn
         text
         href="/"
-        v-bind:class="{ active: isActive(`home`), link: true }"
+        :class="{ active: isActive(`home`), link: true }"
       >
         Home
       </v-btn>
       <v-btn
         text
         href="/commands"
-        v-bind:class="{ active: isActive(`commands`), link: true }"
+        :class="{ active: isActive(`commands`), link: true }"
       >
         Commands
       </v-btn>
@@ -31,7 +31,7 @@
         v-if="loggedIn"
         text
         href="/dashboard"
-        v-bind:class="{ active: isActive(`dashboard`), link: true }"
+        :class="{ active: isActive(`dashboard`), link: true }"
       >
         Dashboard
       </v-btn>
@@ -39,7 +39,7 @@
         v-else
         text
         @click.stop="login()"
-        v-bind:class="{ active: isActive(`dashboard`), link: true }"
+        :class="{ active: isActive(`dashboard`), link: true }"
       >
         Dashboard
       </v-btn>
@@ -147,12 +147,8 @@ export default {
 </script>
 
 <style scoped>
-@import "../assets/Fonts.css";
-
 .link {
-  font-family: Josefin, sans-serif !important;
   color: #fbbc0e !important;
-  font-size: 20px;
   padding: 1rem;
   transition: ease 0.2s;
 }

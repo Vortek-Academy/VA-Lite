@@ -25,6 +25,16 @@ const routes = [
     name: "GDash",
     component: () => import("../views/Guild"),
   },
+  {
+    path: "/privacy",
+    name: "Privacy",
+    component: () => import("../views/Privacy"),
+  },
+  {
+    path: "/terms",
+    name: "Terms",
+    component: () => import("../views/Terms"),
+  },
 ];
 
 const router = new VueRouter({

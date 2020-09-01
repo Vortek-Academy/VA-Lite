@@ -37,5 +37,7 @@ module.exports = (bot) => {
     );
   });
 
-  app.listen(3000, () => console.log("Server started successfully!"));
+  app.listen(3000, "localhost", () =>
+    console.log("Server started successfully!")
+  );
 };

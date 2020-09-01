@@ -21,7 +21,9 @@ module.exports = (bot, app, req, res) => {
 
       res.redirect(
         `${
-          bot.config.type === "development" ? "http://localhost:8080" : ""
+          bot.config.type === "production"
+            ? bot.config.get("api")
+            : "http://localhost:8080"
         }/?access_token=${token.access_token}&refresh_token=${
           token.refresh_token
         }`

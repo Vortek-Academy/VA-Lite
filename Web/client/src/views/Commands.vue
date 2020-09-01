@@ -2,25 +2,27 @@
   <v-container style="margin-top: 5rem;">
     <v-card style="background: #161719;">
       <v-app-bar flat style="background: transparent; color: #eef0f2;">
-        <v-toolbar-title style="color: #e67e22;">
-          Select Category
-        </v-toolbar-title>
-        <v-spacer />
-        <v-btn
-          v-for="cat in categories"
-          :key="cat"
-          depressed
-          v-bind:class="{ active: isActive(cat) }"
-          @click.stop="filterCommand(cat.toLowerCase())"
-          style="margin: 0 5px; background: #e67e22;"
-        >
-          {{ cat }}
-        </v-btn>
+        <v-layout wrap>
+          <v-toolbar-title style="color: #e67e22;">
+            Select Category
+          </v-toolbar-title>
+          <v-spacer />
+          <v-btn
+            v-for="cat in categories"
+            :key="cat"
+            depressed
+            v-bind:class="{ active: isActive(cat) }"
+            @click.stop="filterCommand(cat.toLowerCase())"
+            style="margin: 0 5px; background: #e67e22;"
+          >
+            {{ cat }}
+          </v-btn>
+        </v-layout>
       </v-app-bar>
       <v-card-title style="color: #e67e22;">
-        {{ category }} Commands
-        <v-spacer />
-        <v-row>
+        <v-layout wrap>
+          {{ category }} Commands
+          <v-spacer />
           <v-text-field
             dark
             v-model="search"
@@ -29,7 +31,7 @@
             single-line
             hide-details
           ></v-text-field>
-        </v-row>
+        </v-layout>
       </v-card-title>
       <v-data-table
         dark

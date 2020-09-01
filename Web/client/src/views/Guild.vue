@@ -1,5 +1,5 @@
 <template>
-  <v-container style="margin-top: 5rem;" grid-list-xl>
+  <v-container grid-list-xl style="margin-top: 5rem;">
     <v-layout wrap>
       <v-flex xs12 sm6>
         <v-card
