@@ -7,10 +7,18 @@ This readme is meant for developers to explain the bot setup.
 ```json
 {
   "development": {
-    "token": "TEST BOT TOKEN"
+    "token": "DEVELOPMENT TOKEN",
+    "uri": "DEVELOPMENT MONGO DATABASE",
+    "client": "CLIENT SECRET OF DEVELOPMENT BOT",
+    "redirect": "REDIRECT URI FOR OAUTH2",
+    "api": "THE WEBISTE DOMAIN"
   },
   "production": {
-    "token": "MAIN BOT TOKEN"
+    "token": "PRODUCTION TOKEN",
+    "uri": "PRODUCTION MONGO DATABASE",
+    "client": "CLIENT SECRET OF PRODUCTION BOT",
+    "redirect": "REDIRECT URI FOR OAUTH2",
+    "api": "THE WEBISTE DOMAIN"
   }
 }
 ```
