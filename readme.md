@@ -41,3 +41,14 @@ Use it based on environment. The `development` type should be used when you are 
 
 Please do not push the `config.json` or the `.env` to GitHub.
 Use your own local `config.json` and `.env` files to maintain the safety of the bot!
+
+### License
+
+This project is licensed under the Apache 2.0 License.
+
+### Contributors
+
+The contributors to this project are:
+
+- ThatAnonymousG
+- Johna-3212

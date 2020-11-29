@@ -7,7 +7,7 @@
     "start": "node Src/Bot/index.js"
   },
   "author": "ThatAnonymousG",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "dependencies": {
     "ascii-table": "0.0.9",
     "body-parser": "^1.19.0",
